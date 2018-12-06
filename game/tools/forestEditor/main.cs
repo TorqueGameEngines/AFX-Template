@@ -141,9 +141,9 @@ function ForestEditorPlugin::onActivated( %this )
    ForestEditorPropertiesWindow.setVisible( true );
    ForestEditorGui.makeFirstResponder( true );
    //ForestEditToolbar.setVisible( true );
-   
+
    //Get our existing forest object in our current mission if we have one
-   %forestObject = parseMissionGroupForIds("Forest", "");
+   %forestObject = trim(parseMissionGroupForIds("Forest", ""));
    if(isObject(%forestObject))
    {
       ForestEditorGui.setActiveForest(%forestObject.getName());
@@ -239,9 +239,9 @@ function ForestEditorPlugin::clearDirty( %this )
 function ForestEditorPlugin::onSaveMission( %this, %missionFile )
 {
    ForestDataManager.saveDirty();
-   
+
    //First, find out if we have an existing forest object
-   %forestObject = parseMissionGroupForIds("Forest", "");
+   %forestObject = trim(parseMissionGroupForIds("Forest", ""));
  
    if ( isObject( %forestObject ) )
    {

@@ -50,7 +50,7 @@ function ForestEditorGui::onActiveForestUpdated( %this, %forest, %createNew )
 /// Called from a message box when a forest is not found.
 function ForestEditorGui::createForest( %this )
 {
-   %forestObject = parseMissionGroupForIds("Forest", "");
+   %forestObject = trim(parseMissionGroupForIds("Forest", ""));
  
    if ( isObject( %forestObject ) )
    {
@@ -66,7 +66,7 @@ function ForestEditorGui::createForest( %this )
    };
    
    MECreateUndoAction::submit( theForest );
-   
+
    ForestEditorGui.setActiveForest( theForest );
 
    //Re-initialize the editor settings so we can start using it immediately.
