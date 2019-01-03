@@ -57,13 +57,13 @@ function initRenderManager()
    // Normal mesh rendering.
    DiffuseRenderPassManager.addManager( new RenderTerrainMgr(TerrainBin)   { renderOrder = 0.4; processAddOrder = 0.4; basicOnly = true; } );
    DiffuseRenderPassManager.addManager( new RenderMeshMgr(MeshBin)         { bintype = "Mesh"; renderOrder = 0.5; processAddOrder = 0.5; basicOnly = true; } );
-   DiffuseRenderPassManager.addManager( new RenderImposterMgr(ImposterBin) { renderOrder = 0.56; processAddOrder = 0.56; } );
    DiffuseRenderPassManager.addManager( new RenderObjectMgr(ObjectBin)     { bintype = "Object"; renderOrder = 0.6; processAddOrder = 0.6; } );
 
    DiffuseRenderPassManager.addManager( new RenderObjectMgr(ShadowBin)     { bintype = "Shadow"; renderOrder = 0.7; processAddOrder = 0.7; } );
    DiffuseRenderPassManager.addManager( new RenderMeshMgr(DecalRoadBin)    { bintype = "DecalRoad"; renderOrder = 0.8; processAddOrder = 0.8; } );
    DiffuseRenderPassManager.addManager( new RenderMeshMgr(DecalBin)        { bintype = "Decal"; renderOrder = 0.81; processAddOrder = 0.81; } );
    DiffuseRenderPassManager.addManager( new RenderOcclusionMgr(OccluderBin){ bintype = "Occluder"; renderOrder = 0.9; processAddOrder = 0.9; } );
+   DiffuseRenderPassManager.addManager( new RenderImposterMgr(ImposterBin) { renderOrder = 0.96; processAddOrder = 0.96; basicOnly = true; } );
      
    // We now render translucent objects that should handle
    // their own fogging and lighting.
@@ -71,10 +71,16 @@ function initRenderManager()
    // Note that the fog effect is triggered before this bin.
    DiffuseRenderPassManager.addManager( new RenderObjectMgr(ObjTranslucentBin) { bintype = "ObjectTranslucent"; renderOrder = 1.0; processAddOrder = 1.0; } );
          
-   DiffuseRenderPassManager.addManager( new RenderObjectMgr(WaterBin)          { bintype = "Water"; renderOrder = 1.2; processAddOrder = 1.2; } );
-   DiffuseRenderPassManager.addManager( new RenderObjectMgr(FoliageBin)        { bintype = "Foliage"; renderOrder = 1.3; processAddOrder = 1.3; } );
-	DiffuseRenderPassManager.addManager( new RenderParticleMgr(ParticleBin)    { renderOrder = 1.35; processAddOrder = 1.35; } );
+   DiffuseRenderPassManager.addManager( new RenderObjectMgr(WaterBin)           { bintype = "Water"; renderOrder = 1.2; processAddOrder = 1.2; } );
+   DiffuseRenderPassManager.addManager( new RenderObjectMgr(FoliageBin)         { bintype = "Foliage"; renderOrder = 1.3; processAddOrder = 1.3; } );
+   DiffuseRenderPassManager.addManager( new RenderParticleMgr(ParticleBin)      { renderOrder = 1.35; processAddOrder = 1.35; } );
    DiffuseRenderPassManager.addManager( new RenderTranslucentMgr(TranslucentBin){ renderOrder = 1.4; processAddOrder = 1.4; } );
+   
+   // AFX CODE BLOCK (interior-zodiacs)(polysoup-zodiacs) <<
+   DiffuseRenderPassManager.addManager( new afxZodiacTerrainRenderer() { bintype = "TerrainZodiac"; renderOrder = 1.41; processAddOrder = 1.41; } );
+   DiffuseRenderPassManager.addManager( new afxZodiacPolysoupRenderer() { bintype = "PolysoupZodiac"; renderOrder = 1.42; processAddOrder = 1.42; } );
+   DiffuseRenderPassManager.addManager( new afxZodiacGroundPlaneRenderer() { bintype = "GroundPlaneZodiac"; renderOrder = 1.43; processAddOrder = 1.43; } );
+   DiffuseRenderPassManager.addManager( new afxZodiacMeshRoadRenderer() { bintype = "MeshRoadZodiac"; renderOrder = 1.44; processAddOrder = 1.44; } );
    
    DiffuseRenderPassManager.addManager(new RenderObjectMgr(FogBin){ bintype = "ObjectVolumetricFog"; renderOrder = 1.45; processAddOrder = 1.45; } );
    
@@ -88,11 +94,7 @@ function initRenderManager()
    // Resolve format change token last.
    DiffuseRenderPassManager.addManager( new RenderPassStateBin(FinalBin)       { renderOrder = 1.7; stateToken = AL_FormatToken; } );
 
-   // AFX CODE BLOCK (interior-zodiacs)(polysoup-zodiacs) <<
-   DiffuseRenderPassManager.addManager( new afxZodiacTerrainRenderer() { bintype = "TerrainZodiac"; renderOrder = 1.41; processAddOrder = 1.41; } );
-   DiffuseRenderPassManager.addManager( new afxZodiacPolysoupRenderer() { bintype = "PolysoupZodiac"; renderOrder = 1.42; processAddOrder = 1.42; } );
-   DiffuseRenderPassManager.addManager( new afxZodiacGroundPlaneRenderer() { bintype = "GroundPlaneZodiac"; renderOrder = 1.43; processAddOrder = 1.43; } );
-   DiffuseRenderPassManager.addManager( new afxZodiacMeshRoadRenderer() { bintype = "MeshRoadZodiac"; renderOrder = 1.44; processAddOrder = 1.44; } );
+   
    DiffuseRenderPassManager.addManager( new afxRenderHighlightMgr() { renderOrder = 1.55; processAddOrder = 1.55; } );  // for selection-highlighting
 }
 
